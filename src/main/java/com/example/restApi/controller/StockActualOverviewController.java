@@ -1,7 +1,7 @@
 package com.example.restApi.controller;
 
-import com.example.restApi.entity.OverviewResponseEntity;
-import com.example.restApi.repository.StockOverviewRepository;
+import com.example.restApi.entity.OverviewResponse;
+import com.example.restApi.exception.ResponseException;
 import com.example.restApi.service.StockOverviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -14,12 +14,15 @@ public class StockActualOverviewController {
     @Autowired
     StockOverviewService service;
 
-    @GetMapping("/getStockActualOverview")
-    public ResponseEntity getAllList() {
+    @PostMapping("/getStockActualOverview")
+    public ResponseEntity getAndSaveData() {
         try {
-            OverviewResponseEntity response = service.getAllList();
+            OverviewResponse response = service.getAndSaveData();
             return ResponseEntity.ok().body(response);
-        } catch (Exception e) {
+        } catch (ResponseException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

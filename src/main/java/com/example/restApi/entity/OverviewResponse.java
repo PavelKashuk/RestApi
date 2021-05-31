@@ -12,15 +12,11 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 
-//@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OverviewResponseEntity implements Serializable {
-//    @Id
-//    private long id;
+public class OverviewResponse implements Serializable {
     @JsonProperty("GetStockActualOverviewResult")
-//    @OneToMany
     private List<StockOverviewEntity> getStockActualOverviewEntity;
 }
